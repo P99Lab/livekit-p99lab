@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "livekit-p99lab"
+version = "0.1.0"
+description = "LiveKit Agents turn detector for turn-1-mini, a small streaming end-of-turn detection model by p99lab."
+readme = "README.md"
+license = "BSD-2-Clause"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "p99lab", email = "research@p99lab.com" }]
+keywords = ["livekit", "livekit-agents", "turn-detection", "end-of-turn", "voice", "onnx"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = [
+    "livekit-agents>=1.8,<2",
+    "numpy>=1.26.4,<3",
+    "onnxruntime>=1.17",
+    "soxr>=0.5",
+    "huggingface_hub>=0.30",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pytest-asyncio>=0.24", "livekit-plugins-silero>=1.8,<2"]
+
+[project.urls]
+Homepage = "https://p99lab.com"
+Model = "https://huggingface.co/p99lab/turn-1-mini"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "network: needs the Hugging Face Hub (or a warm local cache); deselect with -m 'not network'",
+]
+
+[tool.ruff]
+line-length = 100
